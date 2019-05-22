@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@model MvsApp.Models.Document
+
+@*@section scripts {
+    <script>
+        $("#form").submit(function () {
+            var $name = $("#name");
+            var $dateOfBirth = $("#dateOfBirth");
+            var $result = $("#result");
+            $.ajax({
+                method: "POST",
+                url: "/Pages/Ajax/AddUserAjax",
+                data: {
+                    name: $name.val(),
+                    dateOfBirth: $dateOfBirth.val(),
+                },
+                success: function (response) {
+                    if (response == 1) {
+                        $("#form")[0].reset();
+                    }
+                }
+            })
+            return false;
+        });
+    </script>
+}*@
+<p>@Model.ToString()</p>
+<form method="post" id="form">
+    <input type="hidden" name="Path" value="@Model.Path"/>
+    @foreach (var field in Model.Fields)
+    {
+        <label for="@field.Key">@field.Key</label> <input type="text" name="Fields[@field.Key]" />
+    }
+
+    <input type="submit" id="submit" value="Submit" />
+</form>
+
