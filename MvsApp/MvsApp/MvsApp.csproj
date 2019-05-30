@@ -138,10 +138,22 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DocumentTemplateController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JsonProcessorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logics\JsonEngine.cs" />
+    <Compile Include="Logics\TemplateEngine.cs" />
     <Compile Include="Models\Document.cs" />
+    <Compile Include="Models\DocumentContentControl.cs" />
+    <Compile Include="Models\DocumentData.cs" />
+    <Compile Include="Models\FieldsDocumentData.cs" />
+    <Compile Include="Models\FieldContentControl.cs" />
+    <Compile Include="Models\FieldDocumentData.cs" />
+    <Compile Include="Models\ListContentControl.cs" />
+    <Compile Include="Models\ListDocumentData.cs" />
+    <Compile Include="Models\TableContentControl.cs" />
+    <Compile Include="Models\TableDocumentData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +193,9 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\DocumentTemplate\Index.cshtml" />
+    <Content Include="Views\Home\IndexAction.cshtml" />
+    <Content Include="Views\JsonProcessor\GetJson.cshtml" />
+    <Content Include="Views\JsonProcessor\LoadJson.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

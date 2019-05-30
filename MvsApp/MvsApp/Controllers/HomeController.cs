@@ -11,7 +11,7 @@ namespace MvsApp.Controllers
     {
         public ActionResult Index()
         {
-            string[] files = Directory.GetFiles(@"C:\Users\Alex\Desktop\Test");
+            string[] files = Directory.GetFiles(@"C:\Users\Alex\Desktop");
             List<string> listDocx = new List<string>();
 
             foreach (var fileName in files)
@@ -23,6 +23,12 @@ namespace MvsApp.Controllers
             }
 
             return View(listDocx);
+        }
+
+        
+        public ActionResult IndexAction(string path)
+        {
+            return View((object)path);
         }
 
         public ActionResult About()

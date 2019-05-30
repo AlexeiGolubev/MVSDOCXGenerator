@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "IndexAction";
+}
+
+@model string
+
+@{
+    <ul>
+        <li>@Html.ActionLink("Получить json", "GetJson", "JsonProcessor", new { path = Model }, null) </li>
+        <li>@Html.ActionLink("Загрузить json", "LoadJson", "JsonProcessor", new { path = Model }, null) </li>
+        <li>@Html.ActionLink("Загрузить форму", "Index", "Home", new { path = Model }, null) </li>
+    </ul>
+}

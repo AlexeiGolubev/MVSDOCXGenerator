@@ -4,37 +4,40 @@
 
 @model IEnumerable<string>
 
-@{ 
+@{
     <ul>
         @foreach (var fileName in Model)
         {
-            <li>@Html.ActionLink(Path.GetFileName(fileName), "Index", "DocumentTemplate", new { path = fileName }, null) </li>
+            <li>@Html.ActionLink(Path.GetFileName(fileName), "IndexAction", "Home", new { path = fileName }, null) </li>
         }
     </ul>
 }
 
-@*@{
-    string[] files = Directory.GetFiles(@"C:\Users\Alex\Desktop\Test");
-    List<string> listDocx = new List<string>();
-    <ul>
-        @foreach (var filename in files)
-        {
-            <li>@filename</li>
 
-            if (filename.EndsWith(".docx"))
+
+
+@*@{
+        string[] files = Directory.GetFiles(@"C:\Users\Alex\Desktop\Test");
+        List<string> listDocx = new List<string>();
+        <ul>
+            @foreach (var filename in files)
             {
-                listDocx.Add(Path.GetFileName(filename));
+                <li>@filename</li>
+
+                if (filename.EndsWith(".docx"))
+                {
+                    listDocx.Add(Path.GetFileName(filename));
+                }
             }
-        }
-    </ul>
-    <hr />
-    <ul>
-        @foreach (var item in listDocx.ToArray())
-        {
-            <li>@item</li>
-        }
-    </ul>
-}*@
+        </ul>
+        <hr />
+        <ul>
+            @foreach (var item in listDocx.ToArray())
+            {
+                <li>@item</li>
+            }
+        </ul>
+    }*@
 
 
 
