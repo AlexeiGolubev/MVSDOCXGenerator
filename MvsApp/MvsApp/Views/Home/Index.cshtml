@@ -1,71 +1,26 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Главная";
 }
-
-@model IEnumerable<string>
-
-@{
-    <ul>
-        @foreach (var fileName in Model)
-        {
-            <li>@Html.ActionLink(Path.GetFileName(fileName), "IndexAction", "Home", new { path = fileName }, null) </li>
-        }
-    </ul>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#fl_inp").change(function () {
+                var filename = $(this).val().replace(/.*\\/, "");
+                $("#fl_nm").html(filename);
+            });
+        });
+    </script>
 }
-
-
-
-
-@*@{
-        string[] files = Directory.GetFiles(@"C:\Users\Alex\Desktop\Test");
-        List<string> listDocx = new List<string>();
-        <ul>
-            @foreach (var filename in files)
-            {
-                <li>@filename</li>
-
-                if (filename.EndsWith(".docx"))
-                {
-                    listDocx.Add(Path.GetFileName(filename));
-                }
-            }
-        </ul>
-        <hr />
-        <ul>
-            @foreach (var item in listDocx.ToArray())
-            {
-                <li>@item</li>
-            }
-        </ul>
-    }*@
-
-
-
-
-@*<div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    
+@using (Html.BeginForm("IndexAction", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="fl_upld">
+        <h3>Выберите docx-шаблон для загрузки</h3>
+        <br>
+        <label><input id="fl_inp" type="file" name="upload" accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document">Выберите файл</label>
+        <div id="fl_nm">Файл не выбран</div><br><br>
+        <label><input id="fl_b" type="submit" />Загрузить</label>
+        <br />
+        <h4>@ViewBag.Message</h4>
     </div>
-
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </div>
-    </div>*@
+}

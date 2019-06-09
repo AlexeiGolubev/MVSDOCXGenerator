@@ -22,43 +22,51 @@ namespace MvsApp.Controllers
             {
                 return File(fileNameJson, "application/json", System.IO.Path.GetFileName(fileNameJson));
             }
-
+            
             return View();
         }
 
+        [HttpGet]
         public ActionResult LoadJson(string path)
         {
-            string fileNameJson = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(path),
-                System.IO.Path.GetFileNameWithoutExtension(path) + ".json");
+            return View((object)path);
+        }
 
-            string fileName = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(path),
-                System.IO.Path.GetFileNameWithoutExtension(path) + "(template)" + System.IO.Path.GetExtension(path));
+        [HttpPost]
+        public ActionResult LoadJson(HttpPostedFileBase upload, string pathFile)
+        {
+            string pathJson = null;
 
-            if (System.IO.File.Exists(fileName))
+            if (upload != null)
             {
-                System.IO.File.Delete(fileName);
+                // получаем имя файла
+                string jsonName = System.IO.Path.GetFileNameWithoutExtension(upload.FileName) + DateTime.Now.ToBinary() + System.IO.Path.GetExtension(upload.FileName);
+                // сохраняем файл в папку Files в проекте
+                pathJson = Server.MapPath("~/App_Data/Files/" + jsonName);
+                upload.SaveAs(pathJson);
             }
 
-            System.IO.File.Copy(path, fileName);
-
-            do
+            if (pathFile != null && pathJson != null)
             {
-                var documentContentControls = MvsApp.Logics.TemplateEngine.GetContentControls(fileName);
-                
-                var documentDatasFromJson = MvsApp.Logics.JsonEngine.ReadJson(fileNameJson);
+                do
+                {
+                    var documentContentControls = MvsApp.Logics.TemplateEngine.GetContentControls(pathFile);
 
-                var newDocumentDatas = MvsApp.Logics.TemplateEngine.CompareContentControls(fileName, documentContentControls, documentDatasFromJson);
+                    var documentDatasFromJson = MvsApp.Logics.JsonEngine.ReadJson(pathJson);
 
-                MvsApp.Logics.TemplateEngine.FillContentControls(fileName, newDocumentDatas);
+                    var newDocumentDatas = MvsApp.Logics.TemplateEngine.CompareContentControls(pathFile, documentContentControls, documentDatasFromJson);
+
+                    MvsApp.Logics.TemplateEngine.FillContentControls(pathFile, newDocumentDatas);
+                }
+                while (MvsApp.Logics.TemplateEngine.GetContentControls(pathFile).Count != 0);
+
+                if (System.IO.File.Exists(pathFile))
+                {
+                    return File(pathFile, "application/docx", System.IO.Path.GetFileName(pathFile));
+                }
             }
-            while (MvsApp.Logics.TemplateEngine.GetContentControls(fileName).Count != 0);
-
-            if (System.IO.File.Exists(fileName))
-            {
-                return File(fileName, "application/docx", System.IO.Path.GetFileName(fileName));
-            }
-
-            return View();
+            ViewBag.Message = "Возможно вы не загрузили json или загрузили пустой json, попробуйте ещё раз";
+            return View("~/Views/Home/Index.cshtml");
         }
     }
 }

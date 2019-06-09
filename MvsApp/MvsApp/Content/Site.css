@@ -5,8 +5,44 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.fl_upld {
+    margin-top: 50px;
+    width: 100%;
+    text-align: center;
+}
+
+#fl_inp {
+    display: none;
+}
+
+.fl_upld label {
+    display: inline-block;
+    cursor: pointer;
+    background: #333;
+    border-radius: 3px;
+    padding: 10px 25px;
+    color: #f8f8f8;
+    font-weight: bold;
+    text-align: center;
+    /*margin-left: 5%;
+    margin-right: 5%;*/
+}
+
+.fl_upld label:hover {
+    background: #777;
+}
+
+#fl_nm {
+    margin-top: 10px;
+    /*margin-left: 5%;*/
+}
+
+#fl_b {
+    display: none;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 

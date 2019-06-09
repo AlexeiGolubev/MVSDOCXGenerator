@@ -1,5 +1,28 @@
 ﻿@{
-    ViewBag.Title = "LoadJson";
+    ViewBag.Title = "Загрузка json";
 }
 
-<h1>В шаблоне нет переменных</h1>
+@model string
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#fl_inp").change(function () {
+                var filename = $(this).val().replace(/.*\\/, "");
+                $("#fl_nm").html(filename);
+            });
+        });
+    </script>
+}
+
+@using (Html.BeginForm("LoadJson", "JsonProcessor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="fl_upld">
+        <h3>Выберите json-файл для загрузки</h3>
+        <br>
+        <label><input id="fl_inp" type="file" name="upload" accept="application/json">Выберите файл</label>
+        <div id="fl_nm">Файл не выбран</div><br><br>
+        <input type="hidden" name="pathFile" value="@Model" />
+        <label><input id="fl_b" type="submit" />Загрузить</label>
+    </div>
+}

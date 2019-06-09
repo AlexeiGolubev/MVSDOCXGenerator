@@ -9,26 +9,41 @@ namespace MvsApp.Controllers
 {
     public class HomeController : Controller
     {
+        [HttpGet]
         public ActionResult Index()
         {
-            string[] files = Directory.GetFiles(@"C:\Users\Alex\Desktop");
-            List<string> listDocx = new List<string>();
-
-            foreach (var fileName in files)
-            {
-                if (fileName.EndsWith(".docx"))
-                {
-                    listDocx.Add(fileName);
-                }
-            }
-
-            return View(listDocx);
+            return View();
         }
 
-        
-        public ActionResult IndexAction(string path)
+        [HttpPost]
+        public ActionResult IndexAction(HttpPostedFileBase upload)
         {
-            return View((object)path);
+            DirectoryInfo dirInfo = new DirectoryInfo(Server.MapPath("~/App_Data/Files/"));
+
+            foreach (FileInfo file in dirInfo.GetFiles())
+            {
+                file.Delete();
+            }
+
+            string path = null;
+
+            if (upload != null)
+            {
+                // получаем имя файла
+                string fileName = System.IO.Path.GetFileNameWithoutExtension(upload.FileName) + DateTime.Now.ToBinary() + System.IO.Path.GetExtension(upload.FileName);
+                // сохраняем файл в папку Files в проекте
+                path = Server.MapPath("~/App_Data/Files/" + fileName);
+                upload.SaveAs(path);
+            }
+
+            if (path != null)
+            {
+                return View((object)path);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         public ActionResult About()

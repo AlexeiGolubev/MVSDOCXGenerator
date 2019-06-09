@@ -3,11 +3,22 @@
 }
 
 @model string
+<style>
+    a:link {
+        color: #787878;
+    }
+</style>
 
 @{
+    <div class="fl_upld">
+        <h3>Выберите действие с шаблоном</h3>
+        <br>
+
+    </div>
+
     <ul>
-        <li>@Html.ActionLink("Получить json", "GetJson", "JsonProcessor", new { path = Model }, null) </li>
-        <li>@Html.ActionLink("Загрузить json", "LoadJson", "JsonProcessor", new { path = Model }, null) </li>
-        <li>@Html.ActionLink("Загрузить форму", "Index", "Home", new { path = Model }, null) </li>
+        <li>@Html.ActionLink("Получить json с элементами из шаблона", "GetJson", "JsonProcessor", new { path = Model }, null) </li>
+        <li>@Html.ActionLink("Загрузить json и наполнить шаблон данными из json", "LoadJson", "JsonProcessor", new { path = Model }, null) </li>
+        <li>@Html.ActionLink("Загрузить форму для наполнения шаблона данными", "Index", "Home", new { path = Model }, null) </li>
     </ul>
 }
